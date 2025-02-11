@@ -7,7 +7,7 @@ from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 
 # TODO lis of cryptocurrencies to fetch (input for dynamic task mapping)
-cryptocurrencies = ["ethereum", "dogecoin", "bitcoin"]
+cryptocurrencies = ["ethereum", "solana", "cardano"]
 api_call_template = "https://api.coingecko.com/api/v3/simple/price?ids={crypto}&vs_currencies=usd"
 
 
