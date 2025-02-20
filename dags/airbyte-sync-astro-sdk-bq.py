@@ -31,8 +31,8 @@ payments_parquet_dataset = Dataset("bigquery://OwsHQ.payments")
 
 # TODO Connections & Variables
 airbyte_conn_id = "airbyte_default"
-airbyte_sync_atlas_gcs_id = "0f2b18ab-b720-487d-bb46-69758b132547"
-landing_zone_path = "gs://owshq-airbyte-ingestion/"
+airbyte_sync_atlas_gcs_id = "0f402dd35-6199-4001-b949-1d356411eb8f"
+landing_zone_path = "gs://owshq-airbyte-ingestion2/"
 source_gcs_conn_id = "google_cloud_default"
 bq_conn_id = "google_cloud_default"
 
