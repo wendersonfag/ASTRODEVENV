@@ -31,7 +31,7 @@ payments_parquet_dataset = Dataset("bigquery://OwsHQ.payments")
 
 # TODO Connections & Variables
 airbyte_conn_id = "airbyte_default"
-airbyte_sync_atlas_gcs_id = "0f402dd35-6199-4001-b949-1d356411eb8f"
+airbyte_sync_atlas_gcs_id = "f402dd35-6199-4001-b949-1d356411eb8f"
 landing_zone_path = "gs://owshq-airbyte-ingestion2/"
 source_gcs_conn_id = "google_cloud_default"
 bq_conn_id = "google_cloud_default"
@@ -69,27 +69,27 @@ def init():
         wait_seconds=3
     )
 
-    #users_parquet = aql.load_file(
-    #    task_id="users_parquet",
-    #    input_file=File(path=landing_zone_path + "mongodb-atlas/users/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
-    #    output_table=Table(name="users", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
-    #    if_exists="replace",
-    #    use_native_support=True,
-    #    outlets=[users_parquet_dataset]
-    #)
+    users_parquet = aql.load_file(
+        task_id="users_parquet",
+        input_file=File(path=landing_zone_path + "mongodb-atlas/users/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
+        output_table=Table(name="users", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
+        if_exists="replace",
+        use_native_support=True,
+        outlets=[users_parquet_dataset]
+    )
 
-    #payments_parquet = aql.load_file(
-    #    task_id="payments_parquet",
-    #    input_file=File(path=landing_zone_path + "mongodb-atlas/payments/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
-    #    output_table=Table(name="payments", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
-    #    if_exists="replace",
-    #    use_native_support=True,
-    #    outlets=[payments_parquet_dataset]
-    #)
+    payments_parquet = aql.load_file(
+        task_id="payments_parquet",
+        input_file=File(path=landing_zone_path + "mongodb-atlas/payments/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
+        output_table=Table(name="payments", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
+        if_exists="replace",
+        use_native_support=True,
+        outlets=[payments_parquet_dataset]
+    )
 
     # TODO Task Dependencies
-    start >> trigger_airbyte_sync_atlas_gcs >> end
-    #start >> trigger_airbyte_sync_atlas_gcs >> [users_parquet, payments_parquet] >> end
+    #start >> trigger_airbyte_sync_atlas_gcs >> end
+    start >> trigger_airbyte_sync_atlas_gcs >> [users_parquet, payments_parquet] >> end
 
 
 # TODO DAG Instantiation
