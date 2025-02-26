@@ -71,8 +71,8 @@ def init():
 
     users_parquet = aql.load_file(
         task_id="users_parquet",
-        input_file=File(path=landing_zone_path + "mongodb-atlas/users/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
-        output_table=Table(name="users", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
+        input_file=File(path=landing_zone_path + "mangodb-atlas/payments", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
+        output_table=Table(name="users", metadata=Metadata(schema="OwsHQ", database="master-inn-450813-t1"), conn_id=bq_conn_id),
         if_exists="replace",
         use_native_support=True,
         outlets=[users_parquet_dataset]
@@ -80,8 +80,8 @@ def init():
 
     payments_parquet = aql.load_file(
         task_id="payments_parquet",
-        input_file=File(path=landing_zone_path + "mongodb-atlas/payments/", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
-        output_table=Table(name="payments", metadata=Metadata(schema="OwsHQ"), conn_id=bq_conn_id),
+        input_file=File(path=landing_zone_path + "mangodb-atlas/users", filetype=FileType.PARQUET, conn_id=source_gcs_conn_id),
+        output_table=Table(name="payments", metadata=Metadata(schema="OwsHQ", database="master-inn-450813-t1"), conn_id=bq_conn_id),
         if_exists="replace",
         use_native_support=True,
         outlets=[payments_parquet_dataset]
